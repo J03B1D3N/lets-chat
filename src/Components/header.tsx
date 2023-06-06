@@ -1,14 +1,16 @@
 import { signInWithPopup } from "firebase/auth"
 import {provider, auth, handleSignIn, handleSignOut } from "../firebase/firebase"
 import { GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SignedInContext } from "../App";
 
 
 export default function Header() {
 
     const user:any = auth.currentUser
 
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useContext(SignedInContext)
+
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -16,11 +18,11 @@ export default function Header() {
           const uid = user.uid
           const userId = uid
           const token = user.getIdToken()
-          setLoggedIn(true)
+          setLoggedIn?.(true)
           console.log("logged in")
     
         } else {
-            setLoggedIn(false)
+            setLoggedIn?.(false)
           // User is signed out
           // ...
           console.log("logged out")
