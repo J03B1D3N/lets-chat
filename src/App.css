@@ -1,0 +1,25 @@
+.mine {
+    justify-content: end;
+}
+.other {
+    justify-content: start;
+}
+.userIcon {
+    width: 3rem;
+}
+.userIcon:hover {
+    cursor: pointer;
+}
+
+
+
+.message {
+    font-size: 1.4rem;
+    width: fit-content;
+}
+
+#text {
+    outline: none;
+    border: none;
+    height: 2.2rem;
+}
