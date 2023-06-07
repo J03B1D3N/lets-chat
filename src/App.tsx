@@ -7,16 +7,23 @@ import Header from './Components/header';
 import Footer from './Components/footer';
 import Main from './Components/main';
 
-type ContextType = [boolean?, Function?]
+type LogInContextType = [boolean?, Function?]
 
-export const SignedInContext = React.createContext<ContextType>([]);
+type ChatRoomContextType = [Array<Object>?, Function?]
+
+export const ChatRoomContext = React.createContext<ChatRoomContextType>([]);
+
+
+
+export const SignedInContext = React.createContext<LogInContextType>([]);
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
-
+  const [chatRoom, setChatRoom] = useState([]) 
 
 
   return (
+    <ChatRoomContext.Provider value={[chatRoom, setChatRoom]}>
     <SignedInContext.Provider value={[loggedIn, setLoggedIn]}>
   <div className="app bg-secondary text-white vh-100 d-flex flex-column justify-content-between">
     <Header></Header>
@@ -24,6 +31,7 @@ function App() {
     <Footer></Footer>
   </div>
     </SignedInContext.Provider>
+    </ChatRoomContext.Provider>
     
   );
 }
