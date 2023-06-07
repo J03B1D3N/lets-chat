@@ -11,18 +11,22 @@ type LogInContextType = [boolean?, Function?]
 
 type ChatRoomContextType = [Array<Object>?, Function?]
 
+type ChosenProjectContextType = [Array<Object>?, Function?]
+
 export const ChatRoomContext = React.createContext<ChatRoomContextType>([]);
 
-
-
 export const SignedInContext = React.createContext<LogInContextType>([]);
+
+export const ChosenProjectContext = React.createContext<ChosenProjectContextType>([]);
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [chatRoom, setChatRoom] = useState([]) 
+  const [chosenProject, setChosenProject] = useState([])
 
 
   return (
+    <ChosenProjectContext.Provider value={[chosenProject, setChosenProject]}>
     <ChatRoomContext.Provider value={[chatRoom, setChatRoom]}>
     <SignedInContext.Provider value={[loggedIn, setLoggedIn]}>
   <div className="app bg-secondary text-white vh-100 d-flex flex-column justify-content-between">
@@ -32,6 +36,7 @@ function App() {
   </div>
     </SignedInContext.Provider>
     </ChatRoomContext.Provider>
+    </ChosenProjectContext.Provider>
     
   );
 }
