@@ -1,35 +1,35 @@
 import { useEffect, useRef, useState, useContext } from "react"
-import { ChatRoomContext } from "../App"
+import { dataContext } from "../App"
 import ProjectDisplay from "../displayFunctions/projectDisplay"
 
 export default function Nav() {
 
     const [addProject, setAddProject] = useState(false)
 
-    const [chatRoom, setChatRoom] = useContext(ChatRoomContext)
+    const [data, setData] = useContext(dataContext)
 
 
     function handleCreateProject() {
-        setAddProject(true)
-        
+        setAddProject(() => true)
     }
+
     const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
+        
         if(inputRef.current) {
             inputRef.current.focus()
         }
-        console.log(chatRoom)
-
-        
     })
     function handleSubmit(e:any) {
         e.preventDefault()
         setAddProject(false)
-        setChatRoom?.((prevChatRoom:any) => [{name: e.target.children[0].value, data: []}, ...prevChatRoom])
+        setData?.((prevdata:any) => [{name: e.target.children[0].value, data: []}, ...prevdata])
     }
     function handleCancel() {
-        setAddProject(false)
+        
+        setAddProject(() => false)
+
     }
 
 
@@ -46,7 +46,7 @@ export default function Nav() {
             <button className="btn btn-outline-danger cancel" onClick={handleCancel}>X</button>
         </div>
         : null}
-        {ProjectDisplay(chatRoom)}
+        {ProjectDisplay?.(data)}
     </div>
 
 }

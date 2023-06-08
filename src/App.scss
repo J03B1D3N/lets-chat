@@ -10,11 +10,28 @@
 .userIcon:hover {
     cursor: pointer;
 }
+html {
+    height: 100vh;
+
+}
+body{
+    height: 100%;
+}
+#root {
+    height: 100%;
+}
+
+
+
 
 
 .message {
     font-size: 1.4rem;
     width: fit-content;
+    word-wrap: break-word;   
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 80%;
 }
 
 #text {

@@ -1,33 +1,38 @@
 import { getAuth } from "firebase/auth"
-import { useContext } from "react"
-import { ChosenProjectContext } from "../App"
+import { useContext, useEffect } from "react"
+import { ChosenProjectDataContext } from "../App"
+import { serverTimestamp } from "firebase/firestore"
 
-const auth = getAuth()
-const user = auth.currentUser
+
 
 export default function MessageDisplay() {
 
-    const [chosenProject, setChosenProject] = useContext(ChosenProjectContext)
+    const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
+
+    const auth = getAuth()
+    const user = auth.currentUser
+    useEffect(() => {
+
+    })
 
     
 
-    return<> {chosenProject!.map((message:any) => {
+   return chosenProjectData?.map((message:any, index) => {
         return <>
-        {user!.uid === message.uid ? 
-            <div className="messageWrapper m-4 w-100 p-1 d-flex mine">
-                <img src={message.photoURL} alt="users profile"></img>
-                <div className="message bg-primary px-3 py-1 rounded">{message.data}</div>
-                <div className="timestamp">{message.timestamp}</div>
+        {user?.uid === message.id ? 
+            <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center mine">
+                <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
+                <div className="message bg-primary px-3 d-flex align-items-center justify-content-start rounded">{message.message}</div>
+                <div className="timestamp">{message.serverTimestamp}</div>
             </div> 
             : 
-            <div className="messageWrapper m-4 w-100 p-1 d-flex other">
-                <img src={message.photoURL} alt="users profile"></img>
-                <div className="message bg-primary px-3 py-1 rounded">{message.data}</div>
+            <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 other">
+                <img src={message.profileUrl} alt="users profile"></img>
+                <div className="message bg-primary px-3 py-1 rounded">{message.message}</div>
                 <div className="timestamp">{message.timestamp}</div>
-            </div>}
-            
+            </div>
+    }
         </>
-    })}
-    </>
+    })
 
 }

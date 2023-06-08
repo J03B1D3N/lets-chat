@@ -1,13 +1,23 @@
-import { useContext } from "react"
-import { ChosenProjectContext } from "../App"
+import { useContext, useEffect } from "react"
+import { ChosenProjectDataContext } from "../App"
+import { ChosenProjectNameContext } from "../App"
 
-export default function ProjectDisplay(projects:object[] | undefined) {
+export default function ProjectDisplay(projects:any) {
 
-    const [chosenProject, setChosenProject] = useContext(ChosenProjectContext)
+    const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
+
+    const [chosenProjectName, setChosenProjectName] = useContext(ChosenProjectNameContext)
+
+    function handleClick(project:any) {
+        setChosenProjectData?.(project.data.messages)
+        setChosenProjectName?.(project.id)
+    }
+
+    
 
 
-    return projects?.map((project:any, index) =>{
-       return <div className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary text-light" 
-        onClick={setChosenProject?.(project.data)}>{project.name}</div>
+    return projects?.map((project:any, index:number) =>{
+       return <div key={index} className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary text-light" 
+        onClick={() =>  handleClick(project)}>{project.id}</div>
     })
 }
