@@ -66,7 +66,7 @@ function App() {
     <ChosenProjectDataContext.Provider value={[chosenProjectData, setChosenProjectData]}>
     <dataContext.Provider value={[data, setData]}>
     <SignedInContext.Provider value={[loggedIn, setLoggedIn]}>
-  <div className="app bg-secondary text-white h-100 d-flex flex-column justify-content-between">
+  <div className="app bg-secondary text-white">
     <Header></Header>
     <Main></Main>
     <Footer></Footer>
