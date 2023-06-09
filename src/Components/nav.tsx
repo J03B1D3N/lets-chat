@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState, useContext } from "react"
 import { dataContext } from "../App"
 import ProjectDisplay from "../displayFunctions/projectDisplay"
+import { setDoc, doc } from "firebase/firestore"
+import { db } from "../firebase/firebase"
 
 export default function Nav() {
 
     const [addProject, setAddProject] = useState(false)
 
     const [data, setData] = useContext(dataContext)
-
-
     function handleCreateProject() {
-        setAddProject(() => true)
+        setAddProject(true)
     }
 
     const inputRef = useRef<HTMLInputElement>(null)
@@ -21,15 +21,26 @@ export default function Nav() {
             inputRef.current.focus()
         }
     })
-    function handleSubmit(e:any) {
-        e.preventDefault()
-        setAddProject(false)
-        setData?.((prevdata:any) => [{name: e.target.children[0].value, data: []}, ...prevdata])
-    }
     function handleCancel() {
-        
-        setAddProject(() => false)
+        setAddProject(false)
+    }
+    async function handleSubmit(e:any) {
+        try {
 
+            e.preventDefault()
+            setAddProject(false)
+            setData?.((prevdata:any) => [{id: e.target.children[0].value, messages: []}, ...prevdata])
+            await setDoc(doc(db, "Let's chat", e.target.children[0].value), {
+                messages: []
+            }) 
+            
+        } catch(error) {
+            console.log(error)
+        }
+        
+
+       
+          
     }
 
 
@@ -46,7 +57,7 @@ export default function Nav() {
             <button className="btn btn-outline-danger cancel" onClick={handleCancel}>X</button>
         </div>
         : null}
-        {ProjectDisplay?.(data)}
+        <div className="projectDisplay px-4">{ProjectDisplay?.(data)}</div>
     </div>
 
 }

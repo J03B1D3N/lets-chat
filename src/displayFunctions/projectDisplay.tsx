@@ -6,11 +6,11 @@ export default function ProjectDisplay(projects:any) {
 
     const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
 
-    const [chosenProjectName, setChosenProjectName] = useContext(ChosenProjectNameContext)
+    const useChosenProjectName = useContext(ChosenProjectNameContext)
 
     function handleClick(project:any) {
         setChosenProjectData?.(project.data.messages)
-        setChosenProjectName?.(project.id)
+        useChosenProjectName?.setChosenProjectName(project.id)
     }
 
     

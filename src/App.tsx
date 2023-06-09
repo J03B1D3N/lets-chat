@@ -7,7 +7,7 @@ import Header from './Components/header';
 import Footer from './Components/footer';
 import Main from './Components/main';
 import { db } from './firebase/firebase';
-import { getFirestore, doc, getDocs, collection, DocumentData } from "firebase/firestore";
+import { getDocs, collection, DocumentData } from "firebase/firestore";
 
 
 
@@ -18,7 +18,11 @@ type dataContextType = [DocumentData?, Function?]
 
 type ChosenProjectDataContextType = [Array<Object>?, Function?]
 
-type ChosenProjectNameContextType = [String?, Function?];
+type ChosenProjectNameContextType = {
+  chosenProjectName: string;
+  setChosenProjectName: React.Dispatch<React.SetStateAction<string>>
+}
+
 
 
 export const dataContext = React.createContext<dataContextType>([]);
@@ -27,7 +31,7 @@ export const SignedInContext = React.createContext<LogInContextType>([]);
 
 export const ChosenProjectDataContext = React.createContext<ChosenProjectDataContextType>([]);
 
-export const ChosenProjectNameContext = React.createContext<ChosenProjectNameContextType>([]);
+export const ChosenProjectNameContext = React.createContext<ChosenProjectNameContextType | null>(null);
 
 
 
@@ -55,18 +59,16 @@ function App() {
 
   useEffect(() => {
     getData()
-    
-
 
   }, [])
 
 
   return (
-    <ChosenProjectNameContext.Provider value={[chosenProjectName, setChosenProjectName]}>
+    <ChosenProjectNameContext.Provider value={{chosenProjectName, setChosenProjectName}}>
     <ChosenProjectDataContext.Provider value={[chosenProjectData, setChosenProjectData]}>
     <dataContext.Provider value={[data, setData]}>
     <SignedInContext.Provider value={[loggedIn, setLoggedIn]}>
-  <div className="app bg-secondary text-white">
+  <div className="app bg-secondary text-white ">
     <Header></Header>
     <Main></Main>
     <Footer></Footer>

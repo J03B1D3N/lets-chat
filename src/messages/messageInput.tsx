@@ -3,36 +3,52 @@ import { ChosenProjectDataContext } from "../App"
 import { getAuth } from "firebase/auth"
 import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, serverTimestamp, updateDoc, arrayUnion} from "firebase/firestore"; 
 
 export default function MessageInput() {
 
     const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
 
-    const [chosenProjectName, setChosenProjectName] = useContext(ChosenProjectNameContext)
+    const useChosenProjectName = useContext(ChosenProjectNameContext)
 
     
     useEffect(() => {
         console.log(chosenProjectData)
     }, [chosenProjectData])
+
+
     const auth = getAuth()
     const user = auth.currentUser
 
     async function handleSubmit(e:any) {
-        e.preventDefault()
-        const message = {
+        try {
+
+            e.preventDefault()
+            const message = {
             id: user?.uid,
             message: e.target.children[0].value,
-            profileUrl: user?.photoURL
+            profileUrl: user?.photoURL,
         }
-        e.target.children[0].value = ""
         setChosenProjectData?.((data:object[]) => [...data, message])
+        
+        if(useChosenProjectName?.chosenProjectName) {
+            await updateDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
+                messages: arrayUnion({
+                    id: user?.uid,
+                    message: e.target.children[0].value,
+                    profileUrl: user?.photoURL,
+                }) 
+            });
+            e.target.children[0].value = ""
+        }
 
-        // await setDoc(doc(db, chosenProjectName,), {
-        //     name: "Los Angeles",
-        //     state: "CA",
-        //     country: "USA"
-        //   });
+        } catch(error) {
+            console.log(error)
+        }
+        
+
+       
+          
     }
 
 

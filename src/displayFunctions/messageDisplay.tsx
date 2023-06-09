@@ -23,13 +23,11 @@ export default function MessageDisplay() {
             <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center mine">
                 <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
                 <div className="message bg-primary px-3 d-flex align-items-center justify-content-start rounded">{message.message}</div>
-                <div className="timestamp">{message.serverTimestamp}</div>
             </div> 
             : 
-            <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 other">
-                <img src={message.profileUrl} alt="users profile"></img>
-                <div className="message bg-primary px-3 py-1 rounded">{message.message}</div>
-                <div className="timestamp">{message.timestamp}</div>
+            <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center  other">
+                <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
+                <div className="message bg-primary px-3 d-flex align-items-center justify-content-start rounded">{message.message}</div>
             </div>
     }
         </>
