@@ -4,12 +4,16 @@ import { getAuth } from "firebase/auth"
 import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
 import { doc, serverTimestamp, updateDoc, arrayUnion} from "firebase/firestore"; 
+import { ChosenProjectIdContext } from "../App"
 
 export default function MessageInput() {
 
     const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
 
     const useChosenProjectName = useContext(ChosenProjectNameContext)
+
+    const useChosenProjectId = useContext(ChosenProjectIdContext)
+
 
     
     useEffect(() => {
@@ -29,7 +33,7 @@ export default function MessageInput() {
             message: e.target.children[0].value,
             profileUrl: user?.photoURL,
         }
-        setChosenProjectData?.((data:object[]) => [...data, message])
+        // setChosenProjectData?.((data:object[]) => [...data, message])
         
         if(useChosenProjectName?.chosenProjectName) {
             await updateDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {

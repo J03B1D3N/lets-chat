@@ -33,17 +33,13 @@ export default function Nav() {
             await setDoc(doc(db, "Let's chat", e.target.children[0].value), {
                 messages: []
             }) 
-            
+
         } catch(error) {
             console.log(error)
         }
-        
-
-       
-          
     }
 
-
+  
 
     return <div className="nav bg-dark h-100 w-25 d-flex flex-column justify-content-start align-items-center py-5">
         <div className="wrapper d-flex w-100 justify-content-around mb-3">
@@ -57,7 +53,7 @@ export default function Nav() {
             <button className="btn btn-outline-danger cancel" onClick={handleCancel}>X</button>
         </div>
         : null}
-        <div className="projectDisplay px-4">{ProjectDisplay?.(data)}</div>
+        <div className="projectDisplay px-4">{ProjectDisplay?.()}</div>
     </div>
 
 }

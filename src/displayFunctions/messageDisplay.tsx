@@ -1,24 +1,36 @@
 import { getAuth } from "firebase/auth"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { ChosenProjectDataContext } from "../App"
-import { serverTimestamp } from "firebase/firestore"
+import { dataContext } from "../App"
 
 
 
 export default function MessageDisplay() {
 
     const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
+    const [data, setData] = useContext(dataContext)
+
+
 
     const auth = getAuth()
     const user = auth.currentUser
     useEffect(() => {
-
-    })
+        if (messageRef.current) {
+          messageRef.current.scrollIntoView(
+            {
+              behavior: 'auto',
+              block: 'end',
+              inline: 'nearest'
+            })
+        }
+      })
+      const messageRef = useRef<HTMLInputElement>(null)
 
     
 
-   return chosenProjectData?.map((message:any, index) => {
-        return <>
+   return <div className="messageDisplay">
+   {chosenProjectData?.map((message:any, index) => {
+       return <>
         {user?.uid === message.id ? 
             <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center mine">
                 <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
@@ -31,6 +43,8 @@ export default function MessageDisplay() {
             </div>
     }
         </>
-    })
+    })}
+    <div ref={messageRef}></div>
+    </div>
 
 }

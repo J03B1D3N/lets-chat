@@ -7,7 +7,7 @@ import Header from './Components/header';
 import Footer from './Components/footer';
 import Main from './Components/main';
 import { db } from './firebase/firebase';
-import { getDocs, collection, DocumentData } from "firebase/firestore";
+import { getDocs, collection, DocumentData, onSnapshot, doc } from "firebase/firestore";
 
 
 
@@ -22,6 +22,10 @@ type ChosenProjectNameContextType = {
   chosenProjectName: string;
   setChosenProjectName: React.Dispatch<React.SetStateAction<string>>
 }
+type ChosenProjectIdContextType = {
+  chosenProjectId: number;
+  setChosenProjectId: React.Dispatch<React.SetStateAction<number>>
+}
 
 
 
@@ -34,19 +38,26 @@ export const ChosenProjectDataContext = React.createContext<ChosenProjectDataCon
 export const ChosenProjectNameContext = React.createContext<ChosenProjectNameContextType | null>(null);
 
 
+export const ChosenProjectIdContext = React.createContext<ChosenProjectIdContextType | null>(null);
+
+
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [data, setData] = useState<DocumentData>([]) 
   const [chosenProjectData, setChosenProjectData] = useState([])
   const [chosenProjectName, setChosenProjectName] = useState("")
+  const [chosenProjectId, setChosenProjectId] = useState(0)
 
 
-  async function getData() {
-    const querrySnapshot = await getDocs(collection(db, "Let's chat"))
+  
+  useEffect(() => {
     let querryArray:object[] = []
-    querrySnapshot.forEach((doc) => {
-    const obj = {
+
+    const unsub = onSnapshot(collection(db, "Let's chat"), (collection) => {
+      collection.forEach((doc) => {
+      const obj = {
       id: doc.id,
       data: doc.data()
     }
@@ -54,16 +65,15 @@ function App() {
     })
       console.log(querryArray)
       setData(querryArray)
-    
-  }
-
-  useEffect(() => {
-    getData()
+    })
 
   }, [])
 
 
   return (
+    <ChosenProjectIdContext.Provider value={{chosenProjectId, setChosenProjectId}}>
+
+
     <ChosenProjectNameContext.Provider value={{chosenProjectName, setChosenProjectName}}>
     <ChosenProjectDataContext.Provider value={[chosenProjectData, setChosenProjectData]}>
     <dataContext.Provider value={[data, setData]}>
@@ -77,6 +87,7 @@ function App() {
     </dataContext.Provider>
     </ChosenProjectDataContext.Provider>
     </ChosenProjectNameContext.Provider>
+    </ChosenProjectIdContext.Provider>
     
   );
 }

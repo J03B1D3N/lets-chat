@@ -4,7 +4,7 @@ import MessageDisplay from "../displayFunctions/messageDisplay"
 
 export default function MessagesTab() {
     return <div className="messages">
-        <div className="messageDisplay">{MessageDisplay()}</div>
+        {MessageDisplay()}
         <MessageInput></MessageInput>
     </div>
 }
