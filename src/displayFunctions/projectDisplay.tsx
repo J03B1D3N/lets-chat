@@ -14,9 +14,10 @@ export default function ProjectDisplay() {
     const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
 
 
-    function handleClick(project:any) {
+    function handleClick(project:any, index:number) {
         setChosenProjectData?.(project.data.messages)
         useChosenProjectName?.setChosenProjectName(project.id)
+        useChosenProjectIndex?.setChosenProjectIndex(index)
     }
 
     useEffect(() => {
@@ -28,6 +29,6 @@ export default function ProjectDisplay() {
 
     return data?.map((project:any, index:number) =>{
        return <div key={index} className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary text-light" 
-        onClick={() =>  handleClick(project)}>{project.id}</div>
+        onClick={() =>  handleClick(project, index)}>{project.id}</div>
     })
 }
