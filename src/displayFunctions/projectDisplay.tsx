@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { ChosenProjectDataContext } from "../App"
 import { ChosenProjectNameContext } from "../App"
 import { dataContext } from "../App"
-import { ChosenProjectIdContext } from "../App"
+import { ChosenProjectIndexContext } from "../App"
 
 export default function ProjectDisplay() {
 
@@ -11,11 +11,12 @@ export default function ProjectDisplay() {
 
 
     const useChosenProjectName = useContext(ChosenProjectNameContext)
-    const useChosenProjectId = useContext(ChosenProjectIdContext)
+    const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
 
 
     function handleClick(project:any) {
         setChosenProjectData?.(project.data.messages)
+        useChosenProjectName?.setChosenProjectName(project.id)
     }
 
     useEffect(() => {

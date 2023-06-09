@@ -22,9 +22,9 @@ type ChosenProjectNameContextType = {
   chosenProjectName: string;
   setChosenProjectName: React.Dispatch<React.SetStateAction<string>>
 }
-type ChosenProjectIdContextType = {
-  chosenProjectId: number;
-  setChosenProjectId: React.Dispatch<React.SetStateAction<number>>
+type ChosenProjectIndexContextType = {
+  chosenProjectIndex: number;
+  setChosenProjectIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
 
@@ -38,7 +38,7 @@ export const ChosenProjectDataContext = React.createContext<ChosenProjectDataCon
 export const ChosenProjectNameContext = React.createContext<ChosenProjectNameContextType | null>(null);
 
 
-export const ChosenProjectIdContext = React.createContext<ChosenProjectIdContextType | null>(null);
+export const ChosenProjectIndexContext = React.createContext<ChosenProjectIndexContextType | null>(null);
 
 
 
@@ -48,7 +48,7 @@ function App() {
   const [data, setData] = useState<DocumentData>([]) 
   const [chosenProjectData, setChosenProjectData] = useState([])
   const [chosenProjectName, setChosenProjectName] = useState("")
-  const [chosenProjectId, setChosenProjectId] = useState(0)
+  const [chosenProjectIndex, setChosenProjectIndex] = useState(0)
 
 
   
@@ -56,6 +56,7 @@ function App() {
     let querryArray:object[] = []
 
     const unsub = onSnapshot(collection(db, "Let's chat"), (collection) => {
+      querryArray = []
       collection.forEach((doc) => {
       const obj = {
       id: doc.id,
@@ -71,9 +72,7 @@ function App() {
 
 
   return (
-    <ChosenProjectIdContext.Provider value={{chosenProjectId, setChosenProjectId}}>
-
-
+    <ChosenProjectIndexContext.Provider value={{chosenProjectIndex, setChosenProjectIndex}}>
     <ChosenProjectNameContext.Provider value={{chosenProjectName, setChosenProjectName}}>
     <ChosenProjectDataContext.Provider value={[chosenProjectData, setChosenProjectData]}>
     <dataContext.Provider value={[data, setData]}>
@@ -87,7 +86,7 @@ function App() {
     </dataContext.Provider>
     </ChosenProjectDataContext.Provider>
     </ChosenProjectNameContext.Provider>
-    </ChosenProjectIdContext.Provider>
+    </ChosenProjectIndexContext.Provider>
     
   );
 }

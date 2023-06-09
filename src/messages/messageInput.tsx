@@ -3,8 +3,8 @@ import { ChosenProjectDataContext } from "../App"
 import { getAuth } from "firebase/auth"
 import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
-import { doc, serverTimestamp, updateDoc, arrayUnion} from "firebase/firestore"; 
-import { ChosenProjectIdContext } from "../App"
+import { doc, setDoc} from "firebase/firestore"; 
+import { ChosenProjectIndexContext } from "../App"
 
 export default function MessageInput() {
 
@@ -12,20 +12,20 @@ export default function MessageInput() {
 
     const useChosenProjectName = useContext(ChosenProjectNameContext)
 
-    const useChosenProjectId = useContext(ChosenProjectIdContext)
+    const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
 
 
     
     useEffect(() => {
+       updateFirebase()
         console.log(chosenProjectData)
-    }, [chosenProjectData])
+    })
 
 
     const auth = getAuth()
     const user = auth.currentUser
 
-    async function handleSubmit(e:any) {
-        try {
+    function handleSubmit(e:any) {
 
             e.preventDefault()
             const message = {
@@ -33,33 +33,25 @@ export default function MessageInput() {
             message: e.target.children[0].value,
             profileUrl: user?.photoURL,
         }
-        // setChosenProjectData?.((data:object[]) => [...data, message])
-        
-        if(useChosenProjectName?.chosenProjectName) {
-            await updateDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
-                messages: arrayUnion({
-                    id: user?.uid,
-                    message: e.target.children[0].value,
-                    profileUrl: user?.photoURL,
-                }) 
+        if(chosenProjectData){
+            setChosenProjectData?.([...chosenProjectData, message])
+        }
+        console.log(chosenProjectData)
+        e.target.children[0].value = ""        
+    }
+    async function updateFirebase() {
+        if(useChosenProjectName?.chosenProjectName && chosenProjectData) {
+            await setDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
+                messages: chosenProjectData
             });
-            e.target.children[0].value = ""
         }
-
-        } catch(error) {
-            console.log(error)
-        }
-        
-
-       
-          
     }
 
 
     return <div className="messageInput p-4 w-100 d-flex justify-content-end align-items-center gap-3">
         <form className="w-100 d-flex gap-2 align-items-center" onSubmit={handleSubmit}>
             <input type="text" id="text" placeholder="Your message..." className="w-100 rounded px-2" />
-        <button className="btn btn-primary">Send</button>
+        <button className="btn btn-primary" type="submit">Send</button>
         </form>
     </div>
 }
