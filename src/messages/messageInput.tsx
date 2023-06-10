@@ -5,6 +5,8 @@ import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
 import { doc, updateDoc} from "firebase/firestore"; 
 import { ChosenProjectIndexContext } from "../App"
+import { dataContext } from "../App"
+
 
 export default function MessageInput() {
 
@@ -13,6 +15,8 @@ export default function MessageInput() {
     const useChosenProjectName = useContext(ChosenProjectNameContext)
 
     const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
+
+    const [data, setData] = useContext(dataContext)
 
 
     

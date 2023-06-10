@@ -1,9 +1,7 @@
 tasks left :
 
-make selected chatroom blue and other not blue.
+when open on two different computers the app sends itself into an infinte loop. I think the problem is in the messageInput moddule,
 
-broke message writing functionality somehow. need to fix.
+I think the problem is because its dependent on the chosenProjectData hook, which i need to try to delete.
 
-also change so that messageDisplay renders on data change. use the project id variable to tell it which item in the array to render.
 
-the array union doesnt merge messages that are the same, only new unique ones.
