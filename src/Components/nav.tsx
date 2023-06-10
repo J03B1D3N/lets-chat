@@ -29,10 +29,11 @@ export default function Nav() {
 
             e.preventDefault()
             setAddProject(false)
-            setData?.((prevdata:any) => [{id: e.target.children[0].value, messages: []}, ...prevdata])
+            // setData?.((prevdata:any) => [{id: e.target.children[0].value, messages: []}, ...prevdata])
             await setDoc(doc(db, "Let's chat", e.target.children[0].value), {
+                date: new Date(),
                 messages: []
-            }) 
+            })  
 
         } catch(error) {
             console.log(error)

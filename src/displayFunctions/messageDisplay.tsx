@@ -31,7 +31,7 @@ export default function MessageDisplay() {
       })
       const messageRef = useRef<HTMLInputElement>(null)
 
-        if(useChosenProjectIndex?.chosenProjectIndex && data) {     
+        if((useChosenProjectIndex?.chosenProjectIndex || useChosenProjectIndex?.chosenProjectIndex === 0) && !Number.isNaN(useChosenProjectIndex?.chosenProjectIndex) && data) {     
             return <div className="messageDisplay">
                 {data[useChosenProjectIndex.chosenProjectIndex].data.messages.map((message:any, index:number) => {
            return <>

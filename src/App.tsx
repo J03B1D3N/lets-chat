@@ -7,7 +7,7 @@ import Header from './Components/header';
 import Footer from './Components/footer';
 import Main from './Components/main';
 import { db } from './firebase/firebase';
-import { getDocs, collection, DocumentData, onSnapshot, doc } from "firebase/firestore";
+import { collection, DocumentData, onSnapshot} from "firebase/firestore";
 
 
 
@@ -23,8 +23,8 @@ type ChosenProjectNameContextType = {
   setChosenProjectName: React.Dispatch<React.SetStateAction<string>>
 }
 type ChosenProjectIndexContextType = {
-  chosenProjectIndex: number;
-  setChosenProjectIndex: React.Dispatch<React.SetStateAction<number>>
+  chosenProjectIndex: number | null;
+  setChosenProjectIndex: React.Dispatch<React.SetStateAction<number>> 
 }
 
 
@@ -48,7 +48,7 @@ function App() {
   const [data, setData] = useState<DocumentData>([]) 
   const [chosenProjectData, setChosenProjectData] = useState([])
   const [chosenProjectName, setChosenProjectName] = useState("")
-  const [chosenProjectIndex, setChosenProjectIndex] = useState(0)
+  const [chosenProjectIndex, setChosenProjectIndex] = useState(NaN)
 
 
   
@@ -64,8 +64,9 @@ function App() {
     }
     querryArray.push(obj)
     })
+      querryArray.sort((a:any,b:any) => a.data.date - b.data.date)
       console.log(querryArray)
-      setData(querryArray)
+      setData(querryArray.reverse())
     })
 
   }, [])

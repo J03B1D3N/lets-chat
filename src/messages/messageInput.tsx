@@ -3,7 +3,7 @@ import { ChosenProjectDataContext } from "../App"
 import { getAuth } from "firebase/auth"
 import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
-import { doc, setDoc} from "firebase/firestore"; 
+import { doc, updateDoc} from "firebase/firestore"; 
 import { ChosenProjectIndexContext } from "../App"
 
 export default function MessageInput() {
@@ -41,7 +41,7 @@ export default function MessageInput() {
     }
     async function updateFirebase() {
         if(useChosenProjectName?.chosenProjectName && chosenProjectData) {
-            await setDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
+            await updateDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
                 messages: chosenProjectData
             });
         }

@@ -28,7 +28,13 @@ export default function ProjectDisplay() {
 
 
     return data?.map((project:any, index:number) =>{
-       return <div key={index} className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary text-light" 
-        onClick={() =>  handleClick(project, index)}>{project.id}</div>
+        if(useChosenProjectIndex?.chosenProjectIndex === index) {
+            return <div key={index} className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary active text-light" 
+            onClick={() =>  handleClick(project, index)}>{project.id}</div>
+        } else {
+            return <div key={index} className="project border border-primary p-1 px-2 my-2 rounded btn btn-outline-primary text-light" 
+            onClick={() =>  handleClick(project, index)}>{project.id}</div>
+        }
+       
     })
 }
