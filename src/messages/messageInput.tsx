@@ -46,12 +46,14 @@ export default function MessageInput() {
             });
         }
     }
-
-
-    return <div className="messageInput p-4 w-100 d-flex justify-content-end align-items-center gap-3">
+    if((useChosenProjectIndex?.chosenProjectIndex || useChosenProjectIndex?.chosenProjectIndex === 0)) {
+        return <div className="messageInput p-4 w-100 d-flex justify-content-end align-items-center gap-3">
         <form className="w-100 d-flex gap-2 align-items-center" onSubmit={handleSubmit}>
             <input type="text" id="text" placeholder="Your message..." className="w-100 rounded px-2" />
         <button className="btn btn-primary" type="submit">Send</button>
         </form>
     </div>
+    } else return <></>
+
+    
 }
