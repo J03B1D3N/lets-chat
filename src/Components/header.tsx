@@ -1,8 +1,8 @@
-import { signInWithPopup } from "firebase/auth"
 import {provider, auth, handleSignIn, handleSignOut } from "../firebase/firebase"
 import { GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 import { useContext, useEffect, useState } from "react";
 import { SignedInContext } from "../App";
+import { ChosenProjectIndexContext } from "../App";
 
 
 export default function Header() {
@@ -10,6 +10,7 @@ export default function Header() {
     const user:any = auth.currentUser
 
     const [loggedIn, setLoggedIn] = useContext(SignedInContext)
+    const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
 
     useEffect(() => {
       onAuthStateChanged(auth, (user) => {
@@ -25,6 +26,7 @@ export default function Header() {
     
         } else {
             setLoggedIn?.(false)
+            useChosenProjectIndex?.setChosenProjectIndex(NaN)
           // User is signed out
           // ...
           console.log("logged out")
@@ -36,8 +38,8 @@ export default function Header() {
 
     return <div className="header w-100 bg-dark d-flex align-items-center justify-content-between px-4">
         <h1 className="p-10">Let's Chat</h1>
-        {loggedIn ? <img className="userIcon my-2 rounded-circle" src={user.photoURL} alt="User's google profile" 
-        onClick={handleSignOut}></img> : <button className="btn btn-primary" onClick={handleSignIn}>Login</button>}
+        {loggedIn ? <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button>
+          : <></>}
         
     </div>
 }
