@@ -45,7 +45,7 @@ export default function MessageInput() {
         }
     }
     if((useChosenProjectIndex?.chosenProjectIndex || useChosenProjectIndex?.chosenProjectIndex === 0)) {
-        return <div className="messageInput p-4 w-100 d-flex justify-content-end align-items-center gap-3">
+        return <div className="messageInput p-4 w-100 d-flex justify-content-end align-items-center gap-3" style={{height: "fit-content"}}>
         <form className="w-100 d-flex gap-2 align-items-center" onSubmit={handleSubmit}>
             <input type="text" id="text" placeholder="Your message..." className="w-100 rounded px-2" />
         <button className="btn btn-primary" type="submit">Send</button>

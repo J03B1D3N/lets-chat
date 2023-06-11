@@ -9,6 +9,7 @@ import Main from './Components/main';
 import { db } from './firebase/firebase';
 import { collection, DocumentData, onSnapshot} from "firebase/firestore";
 import AskToLogIn from './Components/AskToLogIn';
+import Nav from './Components/nav';
 
 
 
@@ -85,6 +86,7 @@ function App() {
   <div className="app bg-secondary text-white position-relative">
     {loggedIn ? null : <AskToLogIn></AskToLogIn>}
     <Header></Header>
+    <Nav></Nav>
     <Main></Main>
     <Footer></Footer>
   </div>
