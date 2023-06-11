@@ -41,7 +41,7 @@ export default function Header() {
         <h1>Let's Chat</h1>
         {loggedIn ? 
         <div className="wrapper d-flex align-items-center gap-3">
-          <img src={user.photoURL} alt="user google profile" className="userIcon rounded-circle"/>
+          <img src={user.photoURL} alt="user google profile" className="userIconLogIn rounded-circle"/>
           <div>@{user.displayName}</div>
           <button className="btn btn-primary btn-sm" onClick={handleSignOut}>Sign Out</button>
         </div>

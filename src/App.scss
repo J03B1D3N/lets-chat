@@ -8,7 +8,7 @@
     width: 3rem;
 }
 .userIconLogIn{
-    width: 5rem;
+    width: 3rem;
 }
 
 .askToLogIn {
@@ -141,6 +141,7 @@ html, body, #root {
     #root{
         font-size: 0.8rem;
     }
+    
     .footer {
         display: none;
     }
@@ -153,6 +154,9 @@ html, body, #root {
                 font-size: 1rem;
             }
             .wrapper{
+                img {
+                    width: 2rem;
+                }
                 
                 div {
                     display: none;
