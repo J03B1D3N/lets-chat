@@ -114,7 +114,7 @@ html, body, #root {
 
 
 .message {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     width: fit-content;
     word-wrap: break-word;   
     overflow-wrap: break-word;
@@ -132,7 +132,7 @@ html, body, #root {
 #text {
     outline: none;
     border: none;
-    height: 2.2rem;
+    height: 2rem;
 }
 .footer {
     display: flex;
@@ -148,6 +148,17 @@ html, body, #root {
         font-size: 1rem;
     }
     .app{
+        .header {
+            h1 {
+                font-size: 1rem;
+            }
+            .wrapper{
+                
+                div {
+                    display: none;
+                }
+            }
+        }
         .nav {
             display: flex;
             grid-column: 1/7;

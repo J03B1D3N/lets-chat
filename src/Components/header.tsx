@@ -38,12 +38,12 @@ export default function Header() {
    if(user?.photoURL) {
 
     return <div className="header w-100 bg-dark d-flex align-items-center justify-content-between px-4">
-        <h1 className="p-10">Let's Chat</h1>
+        <h1>Let's Chat</h1>
         {loggedIn ? 
         <div className="wrapper d-flex align-items-center gap-3">
           <img src={user.photoURL} alt="user google profile" className="userIcon rounded-circle"/>
           <div>@{user.displayName}</div>
-          <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button>
+          <button className="btn btn-primary btn-sm" onClick={handleSignOut}>Sign Out</button>
         </div>
           : <></>}
         
