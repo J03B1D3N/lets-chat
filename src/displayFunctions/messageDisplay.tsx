@@ -47,7 +47,7 @@ export default function MessageDisplay() {
                 <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center  other">
                     <div className="wrapper d-flex flex-column justify-content-center align-items-start">
                       <div>{message.name} @ {message.date.toDate().toDateString()}, {message.date.toDate().toLocaleTimeString()}</div>
-                      <div className="d-flex align-items-center gap-2">
+                      <div className="d-flex align-items-start gap-2">
                         <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
                         <div className="message bg-primary px-3 d-flex align-items-center
                          justify-content-start rounded">{message.message}</div>
