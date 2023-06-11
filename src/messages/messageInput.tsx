@@ -38,6 +38,8 @@ export default function MessageInput() {
                     id: user?.uid,
                     message: e.target.children[0].value,
                     profileUrl: user?.photoURL,
+                    date: new Date(),
+                    name: user?.displayName
                 }]
             });
         }

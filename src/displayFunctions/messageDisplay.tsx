@@ -24,8 +24,6 @@ export default function MessageDisplay() {
               inline: 'nearest'
             })
         }
-        console.log(data)
-        console.log(useChosenProjectIndex?.chosenProjectIndex)
       })
       const messageRef = useRef<HTMLInputElement>(null)
 
@@ -34,14 +32,28 @@ export default function MessageDisplay() {
                 {data[useChosenProjectIndex.chosenProjectIndex].data.messages.map((message:any, index:number) => {
            return <>
             {user?.uid === message.id ? 
-                <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center mine">
-                    <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
-                    <div className="message bg-primary px-3 d-flex align-items-center justify-content-start rounded">{message.message}</div>
+                <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-end mine">
+                    <div className="wrapper d-flex flex-column justify-content-center align-items-end">
+                      <div>{message.date.toDate().toDateString()}, {message.date.toDate().toLocaleTimeString()} @ {message.name}</div>
+                      <div className="d-flex align-items-start gap-2">
+                        <div className="message bg-primary px-3 d-flex align-items-center
+                         justify-content-start rounded">{message.message}</div>
+                        <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
+                      </div>
+                       
+                    </div>
                 </div> 
                 : 
                 <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center  other">
-                    <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
-                    <div className="message bg-primary px-3 d-flex align-items-center justify-content-start rounded">{message.message}</div>
+                    <div className="wrapper d-flex flex-column justify-content-center align-items-start">
+                      <div>{message.name} @ {message.date.toDate().toDateString()}, {message.date.toDate().toLocaleTimeString()}</div>
+                      <div className="d-flex align-items-center gap-2">
+                        <img src={message.profileUrl} alt="users profile" className="rounded-circle userIcon"></img>
+                        <div className="message bg-primary px-3 d-flex align-items-center
+                         justify-content-start rounded">{message.message}</div>
+                      </div>
+                       
+                    </div>
                 </div>
         }
             </>

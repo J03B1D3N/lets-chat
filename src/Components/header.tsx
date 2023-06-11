@@ -7,7 +7,7 @@ import { ChosenProjectIndexContext } from "../App";
 
 export default function Header() {
 
-    const user:any = auth.currentUser
+    const user = auth.currentUser
 
     const [loggedIn, setLoggedIn] = useContext(SignedInContext)
     const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
@@ -34,12 +34,22 @@ export default function Header() {
       });
 
     })
-   
+
+   if(user?.photoURL) {
 
     return <div className="header w-100 bg-dark d-flex align-items-center justify-content-between px-4">
         <h1 className="p-10">Let's Chat</h1>
-        {loggedIn ? <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button>
+        {loggedIn ? 
+        <div className="wrapper d-flex align-items-center gap-3">
+          <img src={user.photoURL} alt="user google profile" className="userIcon rounded-circle"/>
+          <div>@{user.displayName}</div>
+          <button className="btn btn-primary" onClick={handleSignOut}>Sign Out</button>
+        </div>
           : <></>}
         
     </div>
+
+   } else return <></>
+
+    
 }

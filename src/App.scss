@@ -10,9 +10,7 @@
 .userIconLogIn{
     width: 5rem;
 }
-.userIcon:hover {
-    cursor: pointer;
-}
+
 .askToLogIn {
     position: absolute;
     top: 0px;
@@ -50,6 +48,10 @@ html, body, #root {
         grid-column: 1/6;
         grid-row: 2/10;
         display: flex;
+        @media (max-width: 575.98px) {
+            grid-row: 2/11;
+            flex-direction: column;
+        }
         .messages{
             height: 100%;
             width: 100%;
@@ -107,7 +109,6 @@ html, body, #root {
     word-wrap: break-word;   
     overflow-wrap: break-word;
     word-break: break-word;
-    max-width: 80%;
 }
 .project {
     font-size: 1.4rem;
@@ -122,4 +123,21 @@ html, body, #root {
     outline: none;
     border: none;
     height: 2.2rem;
+}
+.footer {
+    display: flex;
+}
+@media (max-width: 575.98px) { 
+    #root{
+        font-size: 0.8rem;
+    }
+    .footer {
+        display: none;
+    }
+    .message {
+        font-size: 1rem;
+    }
+    .nav {
+        width: 100vw;
+    }
 }

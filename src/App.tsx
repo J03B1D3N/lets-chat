@@ -69,6 +69,9 @@ function App() {
       console.log(querryArray)
       setData(querryArray.reverse())
     })
+    return () => {
+      unsub()
+    }
 
   }, [])
 
