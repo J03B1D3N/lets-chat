@@ -32,7 +32,7 @@ export default function MessageDisplay() {
                 {data[useChosenProjectIndex.chosenProjectIndex].data.messages.map((message:any, index:number) => {
            return <>
             {user?.uid === message.id ? 
-                <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-end mine">
+                <div key={index} className="messageWrapper p-2 w-100 d-flex gap-2 align-items-end mine">
                     <div className="wrapper d-flex flex-column justify-content-center align-items-end">
                       <div>{message.date.toDate().toDateString()}, {message.date.toDate().toLocaleTimeString()} @ {message.name}</div>
                       <div className="d-flex align-items-start gap-2">
@@ -44,7 +44,7 @@ export default function MessageDisplay() {
                     </div>
                 </div> 
                 : 
-                <div key={index} className="messageWrapper p-4 w-100 d-flex gap-2 align-items-center  other">
+                <div key={index} className="messageWrapper p-2 w-100 d-flex gap-2 align-items-center  other">
                     <div className="wrapper d-flex flex-column justify-content-center align-items-start">
                       <div>{message.name} @ {message.date.toDate().toDateString()}, {message.date.toDate().toLocaleTimeString()}</div>
                       <div className="d-flex align-items-start gap-2">
