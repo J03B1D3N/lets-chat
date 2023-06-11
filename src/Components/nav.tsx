@@ -49,11 +49,11 @@ export default function Nav() {
         </div>
         {addProject? 
         
-        <div className="input d-flex align-items-center justify-content-center w-100">
+        <div className="input d-flex align-items-center justify-content-center w-100 gap-2">
             <form className="d-flex justify-content-center align-items-center w-75 gap-3" onSubmit={handleSubmit}>
                 <input ref={inputRef} type="text" id="text" className="w-100 rounded px-2" required/>
-                <button className="btn btn-outline-danger cancel btn-sm" onClick={handleCancel}>X</button>
             </form>
+                <button className="btn btn-outline-danger cancel btn-sm" onClick={handleCancel}>X</button>
         </div>
         : null}
         <div className="projectDisplay px-4">{ProjectDisplay?.()}</div>
