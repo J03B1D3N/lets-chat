@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react"
-import { ChosenProjectDataContext } from "../App"
+import { useContext} from "react"
 import { getAuth } from "firebase/auth"
 import { ChosenProjectNameContext } from "../App"
 import { db } from "../firebase/firebase"
@@ -10,8 +9,6 @@ import { dataContext } from "../App"
 
 export default function MessageInput() {
 
-    const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
-
     const useChosenProjectName = useContext(ChosenProjectNameContext)
 
     const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
@@ -20,10 +17,7 @@ export default function MessageInput() {
 
 
     
-    useEffect(() => {
-       updateFirebase()
-        console.log(chosenProjectData)
-    })
+   
 
 
     const auth = getAuth()
@@ -32,21 +26,19 @@ export default function MessageInput() {
     function handleSubmit(e:any) {
 
             e.preventDefault()
-            const message = {
-            id: user?.uid,
-            message: e.target.children[0].value,
-            profileUrl: user?.photoURL,
-        }
-        if(chosenProjectData){
-            setChosenProjectData?.([...chosenProjectData, message])
-        }
-        console.log(chosenProjectData)
-        e.target.children[0].value = ""        
+        
+            updateFirebase(e)     
+            e.target.children[0].value = ""   
     }
-    async function updateFirebase() {
-        if(useChosenProjectName?.chosenProjectName && chosenProjectData) {
+    async function updateFirebase(e:any) {
+        if(useChosenProjectName?.chosenProjectName && (useChosenProjectIndex?.chosenProjectIndex || 
+            useChosenProjectIndex?.chosenProjectIndex === 0) && data) {
             await updateDoc(doc(db, "Let's chat", useChosenProjectName?.chosenProjectName), {
-                messages: chosenProjectData
+                messages: [...data[useChosenProjectIndex?.chosenProjectIndex].data.messages, {
+                    id: user?.uid,
+                    message: e.target.children[0].value,
+                    profileUrl: user?.photoURL,
+                }]
             });
         }
     }

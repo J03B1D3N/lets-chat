@@ -1,6 +1,5 @@
 import { getAuth } from "firebase/auth"
 import { useContext, useEffect, useRef } from "react"
-import { ChosenProjectDataContext } from "../App"
 import { dataContext } from "../App"
 import { ChosenProjectIndexContext } from "../App"
 
@@ -9,7 +8,6 @@ import { ChosenProjectIndexContext } from "../App"
 
 export default function MessageDisplay() {
 
-    const [chosenProjectData, setChosenProjectData] = useContext(ChosenProjectDataContext)
     const [data, setData] = useContext(dataContext)
     const useChosenProjectIndex = useContext(ChosenProjectIndexContext)
 
